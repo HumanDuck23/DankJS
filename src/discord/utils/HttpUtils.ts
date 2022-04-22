@@ -21,10 +21,11 @@ export class HttpUtils {
      * Send a get request to the discord api
      * @param {string} endpoint - The endpoint to send the request to
      * @param {object} [headers] - The headers to send with the request (optional)
-     * @param {boolean} auth - Whether to send the token with the request
+     * @param {boolean} [auth] - Whether to send the token with the request (optional, defaults to `true`)
+     * @param {boolean} [defaultHeaders] - Whether to send the default headers with the request (optional, defaults to `true`)
      * @returns {Promise<AxiosResponse>}
      */
-    static GET(endpoint: string, headers?: object, auth: boolean = true): Promise<AxiosResponse> {
+    static GET(endpoint: string, headers?: object, auth: boolean = true, defaultHeaders: boolean = true): Promise<AxiosResponse> {
         if (this.token === "" && auth) {
             Logger.error("No token set")
             return new Promise<AxiosResponse>(resolve => {
@@ -32,15 +33,18 @@ export class HttpUtils {
             })
         } else {
             return new Promise<AxiosResponse>(resolve => {
-                if (auth) {
+                if (defaultHeaders) {
                     headers = {
                         ...headers,
-                        Authorization: this.token,
                         "content-type": "application/json",
                         "connection": "keep-alive",
                         "accept-encoding": "gzip, deflate, br",
                         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:95.0) Gecko/20100101 Firefox/95.0"
                     }
+                }
+                if (auth) {
+                    // @ts-ignore
+                    headers["Authorization"] = this.token
                 }
                 axios.get(`${this.apiUrl}${endpoint}`, {
                     headers: { ...headers }
