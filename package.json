@@ -15,5 +15,8 @@
     "bot"
   ],
   "author": "HumanDuck23",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.26.1"
+  }
 }
