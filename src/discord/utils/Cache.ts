@@ -5,24 +5,24 @@ import * as fs from "fs"
  */
 export class Cache {
 
-    file: string = "cache.json"
+    static file: string = "cache.json"
 
-    get(key: string): any {
+    static get(key: string): any {
         return this.getCache()[key]
     }
 
-    set(key: string, value: any): void {
+    static set(key: string, value: any): void {
         const cache = this.getCache()
         cache[key] = value
         this.setCache(cache)
     }
 
-    getCache(): any {
+    static getCache(): any {
         if (!fs.existsSync(this.file)) return {}
         return JSON.parse(fs.readFileSync(this.file, "utf8"))
     }
 
-    setCache(cache: any): void {
+    static setCache(cache: any): void {
         fs.writeFileSync(this.file, JSON.stringify(cache))
     }
 
