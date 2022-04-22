@@ -5,8 +5,8 @@ import { Logger } from "./Logger"
  * Class that contains methods used all the time relating to http requests to the discord api
  */
 export class HttpUtils {
-    static apiVersion: string = "v9"
-    static apiUrl: string = "https://discord.com/api/" + this.apiVersion
+    static apiVersion: string = "9"
+    static apiUrl: string = "https://discord.com/api/v" + this.apiVersion
     static token: string = ""
 
     /**
@@ -24,7 +24,7 @@ export class HttpUtils {
      * @param {boolean} auth - Whether to send the token with the request
      * @returns {Promise<AxiosResponse>}
      */
-    static GET(endpoint: string, headers?: object, auth: boolean = false): Promise<AxiosResponse> {
+    static GET(endpoint: string, headers?: object, auth: boolean = true): Promise<AxiosResponse> {
         if (this.token === "" && auth) {
             Logger.error("No token set")
             return new Promise<AxiosResponse>(resolve => {
