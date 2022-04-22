@@ -18,6 +18,7 @@ export class Cache {
     }
 
     getCache(): any {
+        if (!fs.existsSync(this.file)) return {}
         return JSON.parse(fs.readFileSync(this.file, "utf8"))
     }
 
