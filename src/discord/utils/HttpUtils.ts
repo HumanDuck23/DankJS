@@ -5,7 +5,8 @@ import { Logger } from "./Logger"
  * Class that contains methods used all the time relating to http requests to the discord api
  */
 export class HttpUtils {
-    static apiUrl: string = "https://discord.com/api/v9"
+    static apiVersion: string = "v9"
+    static apiUrl: string = "https://discord.com/api/" + this.apiVersion
     static token: string = ""
 
     /**
